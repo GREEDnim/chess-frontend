@@ -2,6 +2,9 @@
     padding:0;
     margin:0;
 }
+:root {
+    --board-size: 600px;
+  }
 .container{
 
     height: 100vh;
