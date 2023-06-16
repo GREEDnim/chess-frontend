@@ -1,19 +1,13 @@
 import React from 'react';
-import { useDrag,DragPreviewImage } from 'react-dnd';
 import './Piece.css'
 
 const Piece = ({piece}) => {
-
-  const[{isDragging},drag]=useDrag(()=>({
-    type:'piece',
-    item:{...piece},
-    collect:(monitor)=>({
-      isDragging:monitor.isDragging(),
-    })
-  }));
- 
+function dragStart(e){
+  e.dataTransfer.setData("piece/text", piece);
+}
+  
   return (
-       <img className='chess-piece' ref={drag} src={piece.src} alt=""   />
+       <img className='chess-piece' draggable={true}  onDrag={dragStart} src={piece.src} alt=""   />
   )
  
 };

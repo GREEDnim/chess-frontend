@@ -1,8 +1,17 @@
 import './Tile.css'
 import Piece from '../Piece/Piece';
-import { useDrop } from 'react-dnd';
 function Tile({x,y,piece,board,setBoard}){
 
+  function dragOver(e) {
+    console.log('dragover')
+    e.preventDefault();
+  }
+  function drop(e){
+    console.log('drop')
+    e.preventDefault();
+    var data = e.dataTransfer.getData("piece/text");
+    console.log(data);
+  }
   function addToBoard(piece) {
     board=JSON.parse(JSON.stringify(board))
     board[piece.x][piece.y]={};
@@ -15,17 +24,9 @@ function Tile({x,y,piece,board,setBoard}){
   }
 
     const className=`tile ${ (x+y)%2===0? 'white' : 'black'}`;
-    const [{isOver},drop]=useDrop(()=>({
-      accept:'piece',
-      drop:(item) =>{addToBoard(item)},
-      collect:(monitor)=>({
-        isOver:monitor.isOver(),
-      })
+   
 
-    }));
-
-
-    return <div className={className} data-x={x} data-y={y} key={`${x}-${y}`}  ref={drop}>
+    return <div className={className} data-x={x} data-y={y} key={`${x}-${y}`} onDragOver={dragOver} onDrop={drop} >
         {piece.src && <Piece piece={piece} ></Piece>}
     </div>
 }  
