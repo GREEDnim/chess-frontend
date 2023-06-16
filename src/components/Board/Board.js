@@ -9,11 +9,10 @@ function Board(){
     return(
         <div className='board-container'>
             {board.map((row,x)=>{
-                return row.map((ele,y)=><Tile x={x} y={y} imageSrc={ele.imageSrc}/>)
+                return row.map((ele,y)=><Tile x={x} y={y} piece={ele} board={board} setBoard={setBoard}/>)
             })}
         </div>
     )
-    
 
 }
 export default Board;

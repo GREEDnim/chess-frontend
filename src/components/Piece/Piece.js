@@ -1,6 +1,28 @@
+import { useState } from 'react';
 import React from 'react';
-const Piece = ({ imageSrc}) => {
-  return <img  className='chess-piece' src={imageSrc} alt=""  />;
+import './Piece.css';
+
+const Piece = ({ piece }) => {
+
+  const[isDragging,setDragging]=useState(false)
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text/plain', JSON.stringify(piece));
+    setDragging(true);
+  }
+  function dragEnd(){
+    setDragging(false);
+  }
+
+  const style={
+    opacity:isDragging ?0:1,
+  }
+
+  return (
+
+    <img className='chess-piece' draggable={true} onDragStart={dragStart} onDragEnd={dragEnd} src={piece.src}  style={style} alt="" />
+  );
 };
 
 export default Piece;
+
