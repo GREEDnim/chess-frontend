@@ -8,10 +8,17 @@ function Tile({ x, y, piece, board, setBoard }) {
 
   function drop(e) {
     e.preventDefault();
-    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+    const pieceData = JSON.parse(e.dataTransfer.getData('text/plain'));
+
+    addToBoard(pieceData);
+  }
+  
+  function addToBoard(pieceData){
     const newBoard = [...board];
-    newBoard[data.x][data.y] = {src:null};
-    newBoard[x][y] = {...data};
+    //from position of drag
+    newBoard[pieceData.x][pieceData.y] = {x:-1,y:-1,color:'invalid',type:'invalid',valid:false,src:null};
+    // to position of drag, update x and y
+    newBoard[x][y] = {...pieceData,x:x,y:y};
     setBoard(newBoard);
   }
 
@@ -19,7 +26,7 @@ function Tile({ x, y, piece, board, setBoard }) {
 
   return (
     <div className={className} data-x={x} data-y={y} key={`${x}-${y}`} onDragOver={dragOver} onDrop={drop}>
-      {piece.src && <Piece piece={piece} />}
+      {piece.valid && <Piece piece={piece} />}
     </div>
   );
 }

@@ -16,7 +16,7 @@ export function getBoard(){
     for(let x=0;x<8;x++){
         let row=[];
         for(let y=0;y<8;y++){
-            row.push({})
+            row.push(new ChessPiece())
         }
         board.push(row);
     }
@@ -30,8 +30,8 @@ export function createInitialBoard(board){
     let whiteRow=6;
     let blackRow=1;
    for(let col=0;col<8;col++){
-    board[whiteRow][col]=new ChessPiece('P',0,whiteRow,col,wPawn)
-    board[blackRow][col]=new ChessPiece('P',1,blackRow,col,bPawn)
+    board[whiteRow][col]=new ChessPiece('P',0,whiteRow,col,wPawn,true)
+    board[blackRow][col]=new ChessPiece('P',1,blackRow,col,bPawn,true)
 }
 
     let s=0;
@@ -41,28 +41,28 @@ export function createInitialBoard(board){
     while(s<e)
     {
         if(s===0) {
-            board[whiteRow][s]=new ChessPiece('R',0,whiteRow,s,wRook)
-            board[whiteRow][e]=new ChessPiece('R',0,whiteRow,e,wRook)
-            board[blackRow][s]=new ChessPiece('R',1,blackRow,s,bRook)
-            board[blackRow][e]=new ChessPiece('R',1,blackRow,s,bRook)
+            board[whiteRow][s]=new ChessPiece('R',0,whiteRow,s,wRook,true)
+            board[whiteRow][e]=new ChessPiece('R',0,whiteRow,e,wRook,true)
+            board[blackRow][s]=new ChessPiece('R',1,blackRow,s,bRook,true)
+            board[blackRow][e]=new ChessPiece('R',1,blackRow,s,bRook,true)
         }
         if(s===1){
-            board[whiteRow][s]=new ChessPiece('K',0,whiteRow,s,wKnight)
-            board[whiteRow][e]=new ChessPiece('K',0,whiteRow,e,wKnight)
-            board[blackRow][s]=new ChessPiece('K',1,blackRow,s,bKnight)
-            board[blackRow][e]=new ChessPiece('K',1,blackRow,s,bKnight)
+            board[whiteRow][s]=new ChessPiece('K',0,whiteRow,s,wKnight,true)
+            board[whiteRow][e]=new ChessPiece('K',0,whiteRow,e,wKnight,true)
+            board[blackRow][s]=new ChessPiece('K',1,blackRow,s,bKnight,true)
+            board[blackRow][e]=new ChessPiece('K',1,blackRow,s,bKnight,true)
         }
         if(s===2){
-            board[whiteRow][s]=new ChessPiece('B',0,whiteRow,s,wBishop)
-            board[whiteRow][e]=new ChessPiece('B',0,whiteRow,e,wBishop)
-            board[blackRow][s]=new ChessPiece('B',1,blackRow,s,bBishop)
-            board[blackRow][e]=new ChessPiece('B',1,blackRow,s,bBishop)        
+            board[whiteRow][s]=new ChessPiece('B',0,whiteRow,s,wBishop,true)
+            board[whiteRow][e]=new ChessPiece('B',0,whiteRow,e,wBishop,true)
+            board[blackRow][s]=new ChessPiece('B',1,blackRow,s,bBishop,true)
+            board[blackRow][e]=new ChessPiece('B',1,blackRow,s,bBishop,true)        
         }
         if(s===3){
-            board[whiteRow][s]=new ChessPiece('Q',0,whiteRow,s,wQueen)
-            board[whiteRow][e]=new ChessPiece('K',0,whiteRow,e,wKing)
-            board[blackRow][s]=new ChessPiece('Q',1,blackRow,s,bQueen)
-            board[blackRow][e]=new ChessPiece('K',1,blackRow,s,bKing)     
+            board[whiteRow][s]=new ChessPiece('Q',0,whiteRow,s,wQueen,true)
+            board[whiteRow][e]=new ChessPiece('K',0,whiteRow,e,wKing,true)
+            board[blackRow][s]=new ChessPiece('Q',1,blackRow,s,bQueen,true)
+            board[blackRow][e]=new ChessPiece('K',1,blackRow,s,bKing,true)     
         }
 
         s++;
