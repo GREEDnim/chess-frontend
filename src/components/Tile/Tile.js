@@ -9,10 +9,13 @@ function Tile({ x, y, piece, board, setBoard }) {
   function drop(e) {
     e.preventDefault();
     const pieceData = JSON.parse(e.dataTransfer.getData('text/plain'));
-
+    console.log('before',board)
+    console.log('from',pieceData.x,pieceData.y);
+    console.log('to',x,y);
     addToBoard(pieceData);
+    console.log('after',board)
   }
-  
+
   function addToBoard(pieceData){
     const newBoard = [...board];
     //from position of drag

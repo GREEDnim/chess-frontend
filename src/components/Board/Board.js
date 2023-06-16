@@ -5,7 +5,7 @@ import Tile from '../Tile/Tile';
 function Board(){
 
     const[board,setBoard]=useState(createInitialBoard(getBoard()));
-
+    console.log(board)
     return(
         <div className='board-container'>
             {board.map((row,x)=>{
