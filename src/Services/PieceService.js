@@ -108,6 +108,56 @@ export function validMove(from,to,piece,board){
 
         
     }
+    if(piece.type=='B'){
+
+        // checking if its in a diagonal 
+        if(Math.abs(from.x-to.x)!=Math.abs(from.y-to.y)) return false;
+
+        //going towards top
+        if(to.x<from.x){
+
+            //towards left , row and column decreases
+            if(to.y<from.y){
+                for( let i=from.x-1,j=from.y-1 ;(i>=0 && j>=0 && i>to.x && j>to.y );i--,j--){
+                    if(board[i][j].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+            //towards right, row decreases, column increases
+            if(to.y>from.y)
+            {
+                for(let i=from.x-1,j=from.y+1; (i>=0 && j<=7 && i>to.x && j<to.y);i--,j++){
+                    if(board[i][j].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+            
+        }
+        //going towards bottom
+        if(to.x>from.x){
+
+            //toward left , row inc , col dec
+            if(to.y<from.y){
+                for(let i=from.x+1,j=from.y-1;(i<=7 && j>=0 && i<to.x && j>to.y );i++,j--){
+                    if(board[i][j].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+            //toward right, row inc, col inc
+            if(to.y>from.y){
+                for(let i=from.x+1,j=from.y+1;(i<=7 && j<=7 && i<to.x && j<to.y);i++,j++){
+                    if(board[i][j].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+              
+        }
+        
+    }
        
     return true;
 }
