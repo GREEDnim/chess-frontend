@@ -16,7 +16,7 @@ export function getBoard(){
     for(let x=0;x<8;x++){
         let row=[];
         for(let y=0;y<8;y++){
-            row.push(new ChessPiece())
+            row.push(new ChessPiece('invalid', 'invalid', -1, -1, null, false))
         }
         board.push(row);
     }
