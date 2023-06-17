@@ -58,6 +58,56 @@ export function validMove(from,to,piece,board){
         // either piece is same color or not possible move
         return false;
     }
+    if(piece.type=='R'){
+
+        //same row, horizontal
+        if(from.x==to.x){
+            // go right
+            if(from.y<to.y){
+
+                for(let i=(from.y)+1;i<to.y;i++){
+                    if(board[from.x][i].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+            //go left
+            if(from.y>to.y){
+
+                for(let i=(from.y)-1;i>to.y;i--){
+                    if(board[from.x][i].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+
+        }
+        //same col, vertical
+        else if(from.y==to.y){
+
+            // go top
+            if(from.x<to.x){
+
+                for(let i=(from.x)+1;i<to.x;i++){
+                    if(board[i][to.y].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }
+            //go bottom
+            if(from.x>to.x){
+
+                for(let i=(from.x)-1;i>to.x;i--){
+                    if(board[i][to.y].valid) return false;
+                }
+                if(board[to.x][to.y].valid && board[to.x][to.y].color==piece.color) return false;
+                return true;
+            }            
+        }
+        else return false;
+
+        
+    }
        
     return true;
 }
