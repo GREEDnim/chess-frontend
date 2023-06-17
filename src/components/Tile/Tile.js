@@ -1,6 +1,6 @@
 import './Tile.css';
 import Piece from '../Piece/Piece';
-
+import { validMove } from '../../Services/PieceService';
 function Tile({ x, y, piece, board, setBoard }) {
   function dragOver(e) {
     e.preventDefault();
@@ -9,10 +9,14 @@ function Tile({ x, y, piece, board, setBoard }) {
   function drop(e) {
     e.preventDefault();
     const pieceData = JSON.parse(e.dataTransfer.getData('text/plain'));
+    
+    if(validMove({x:pieceData.x,y:pieceData.y},{x,y},pieceData,board)){
+      addToBoard(pieceData);
+    }
+    else console.log("invalid move");
 
-    addToBoard(pieceData);
   }
-  
+
   function addToBoard(pieceData){
     const newBoard = [...board];
     //from position of drag

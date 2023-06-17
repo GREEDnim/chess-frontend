@@ -10,13 +10,13 @@ import wQueen from '../assets/wQueen.svg';
 import wRook from '../assets/wRook.svg';
 import wKnight from '../assets/wKnight.svg';
 import wBishop from '../assets/wBishop.svg';
-import { ChessPiece } from '../Model/Piece';
+import { ChessPiece } from '../Model/ChessPiece';
 export function getBoard(){
     let board=[];
     for(let x=0;x<8;x++){
         let row=[];
         for(let y=0;y<8;y++){
-            row.push(new ChessPiece())
+            row.push(new ChessPiece('invalid', 'invalid', -1, -1, null, false))
         }
         board.push(row);
     }
@@ -44,13 +44,13 @@ export function createInitialBoard(board){
             board[whiteRow][s]=new ChessPiece('R',0,whiteRow,s,wRook,true)
             board[whiteRow][e]=new ChessPiece('R',0,whiteRow,e,wRook,true)
             board[blackRow][s]=new ChessPiece('R',1,blackRow,s,bRook,true)
-            board[blackRow][e]=new ChessPiece('R',1,blackRow,s,bRook,true)
+            board[blackRow][e]=new ChessPiece('R',1,blackRow,e,bRook,true)
         }
         if(s===1){
-            board[whiteRow][s]=new ChessPiece('K',0,whiteRow,s,wKnight,true)
-            board[whiteRow][e]=new ChessPiece('K',0,whiteRow,e,wKnight,true)
-            board[blackRow][s]=new ChessPiece('K',1,blackRow,s,bKnight,true)
-            board[blackRow][e]=new ChessPiece('K',1,blackRow,s,bKnight,true)
+            board[whiteRow][s]=new ChessPiece('N',0,whiteRow,s,wKnight,true)
+            board[whiteRow][e]=new ChessPiece('N',0,whiteRow,e,wKnight,true)
+            board[blackRow][s]=new ChessPiece('N',1,blackRow,s,bKnight,true)
+            board[blackRow][e]=new ChessPiece('N',1,blackRow,e,bKnight,true)
         }
         if(s===2){
             board[whiteRow][s]=new ChessPiece('B',0,whiteRow,s,wBishop,true)
@@ -62,7 +62,7 @@ export function createInitialBoard(board){
             board[whiteRow][s]=new ChessPiece('Q',0,whiteRow,s,wQueen,true)
             board[whiteRow][e]=new ChessPiece('K',0,whiteRow,e,wKing,true)
             board[blackRow][s]=new ChessPiece('Q',1,blackRow,s,bQueen,true)
-            board[blackRow][e]=new ChessPiece('K',1,blackRow,s,bKing,true)     
+            board[blackRow][e]=new ChessPiece('K',1,blackRow,e,bKing,true)     
         }
 
         s++;

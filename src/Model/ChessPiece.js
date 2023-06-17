@@ -6,6 +6,8 @@ export class ChessPiece{
     y=-1;
     src=null;
     valid=false;
+    
+    
 
     constructor(type,color,x,y,src,valid){
         this.type=type;

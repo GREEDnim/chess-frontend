@@ -9,13 +9,17 @@ const Piece = ({ piece }) => {
   function dragStart(e) {
     e.dataTransfer.setData('text/plain', JSON.stringify(piece));
     setDragging(true);
+  
   }
+  
   function dragEnd(){
     setDragging(false);
   }
 
   const style={
     opacity:isDragging ?0:1,
+    cursor:isDragging?'grabbing':'grab',
+    userSelect:'none',
   }
 
   return (
