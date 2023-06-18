@@ -1,3 +1,4 @@
+import { ChessPiece } from "../Model/ChessPiece";
 function validPawnMove(from,to,piece,board){
     // checking how many rows and moved;
     let rowsMoved=Math.abs(from.x-to.x);
@@ -144,14 +145,258 @@ function validKingMove(from,to,piece,board){
     if(piece.color==board[to.x][to.y].color) return false;
     return true;
 }
+function opensCheck(color,board){
+    // finding kings position.
+    //color : 0- white , 1-black
+    let king={};
+    for(let i=0;i<board.length;i++){
+        for(let j=0;j<board[i].length;j++){
+            if(board[i][j].color==color && board[i][j].type=='K'){
+                king.x=i; king.y=j; break;
+            }
+        }
+    }
+    console.log(king);
+    // check if other color pawn in attacking.
 
+    if(color==0){
+        let p=[[-1,-1],[-1,1]];
+        for(let i=0;i<p.length;i++){
+            let pos={x:king.x+p[i][0],y:king.y+p[i][1]};
+            if(pos.x<0 || pos.y<0 || pos.x>7 || pos.y>7) continue;
+            if(board[pos.x][pos.y].valid && board[pos.x][pos.y].type=='P' ){
+                if(board[pos.x][pos.y].color==1) return true;
+            }
+        } 
+    } 
+    else if(color==1){
+        let p=[[1,-1],[1,1]];
+        for(let i=0;i<p.length;i++){
+            let pos={x:king.x+p[i][0],y:king.y+p[i][1]};
+            if(pos.x<0 || pos.y<0 || pos.x>7 || pos.y>7) continue;
+            if(board[pos.x][pos.y].valid && board[pos.x][pos.y].type=='P'){
+                if(board[pos.x][pos.y].color==0) return true;
+            }
+        } 
+    }
+
+    // knight
+    //all possible knight positions of opp
+    let p=[[2,-1],[2,1],[1,-2],[1,2],[-1,-2],[-1,2],[-2,1],[-2,-1]];
+
+    for(let i=0;i<p.length;i++){
+        let pos={x:king.x+p[i][0],y:king.y+p[i][1]}
+        //checking in bounds
+        if(pos.x<0 || pos.x>7 || pos.y<0 || pos.y>7) continue;
+        // if piece is knight and of opposite color.
+        if(board[pos.x][pos.y].valid && board[pos.x][pos.y].type=='N'){
+            if(color==0 && board[pos.x][pos.y].color==1) return true;
+            if(color==1 && board[pos.x][pos.y].color==0) return true;
+        }
+    }
+
+    //bishop and queen
+        // top left.
+        for(let x=king.x-1,y=king.y-1;x>=0 && y>=0;x--,y--){
+            if(board[x][y].valid){
+                if(board[x][y].type=='B' || board[x][y].type=='Q'){
+                    if(color==1 && board[x][y].color==0) return true;
+                    if(color==0 && board[x][y].color==1) return true;
+                }
+                break;
+            }
+        }
+        //top right
+        for(let x=king.x-1,y=king.y+1;x>=0 && y<8 ; x--,y++){
+            if(board[x][y].valid){
+                if(board[x][y].type=='B' || board[x][y].type=='Q'){
+                    if(color==1 && board[x][y].color==0) return true;
+                    if(color==0 && board[x][y].color==1) return true;
+                }
+                break;
+            }
+        }
+        //bottom left
+        for(let x=king.x+1,y=king.y-1;x<8 && y>=0;x++,y--){
+            if(board[x][y].valid){
+                if(board[x][y].type=='B' || board[x][y].type=='Q'){
+                    if(color==1 && board[x][y].color==0) return true;
+                    if(color==0 && board[x][y].color==1) return true;
+                }
+                break;
+            }
+        }
+        //bottom right
+        for(let x=king.x+1,y=king.y+1;x<8 && y<8 ; x++,y++){
+            if(board[x][y].valid){
+                if(board[x][y].type=='B' || board[x][y].type=='Q'){
+                    if(color==1 && board[x][y].color==0) return true;
+                    if(color==0 && board[x][y].color==1) return true;
+                }
+                break;
+            }
+        }
+    //rook and queen
+        //left
+        for(let y=king.y-1;y>=0;y--){
+            if(board[king.x][y].valid){
+                if(board[king.x][y].type=='R' || board[king.x][y].type=='Q'){
+                    if(color==1 && board[king.x][y].color==0) return true;
+                    if(color==0 && board[king.x][y].color==1) return true;
+                }
+                break;
+            }
+        }
+        //right
+        for(let y=king.y+1;y<8;y++){
+            if(board[king.x][y].valid){
+                if(board[king.x][y].type=='R' || board[king.x][y].type=='Q'){
+                    if(color==1 && board[king.x][y].color==0) return true;
+                    if(color==0 && board[king.x][y].color==1) return true;
+                }
+                break;
+            }
+        }
+        //top
+        for(let x=king.x-1;x>=0;x--){
+            if(board[x][king.y].valid){
+                if(board[x][king.y].type=='R' || board[x][king.y].type=='Q'){
+                    if(color==1 && board[x][king.y].color==0) return true;
+                    if(color==0 && board[x][king.y].color==1) return true;
+                }
+                break; 
+            }
+        }
+        //bottom
+        for(let x=king.x+1;x<8;x++){
+            if(board[x][king.y].valid){
+                if(board[x][king.y].type=='R' || board[x][king.y].type=='Q'){
+                    if(color==1 && board[x][king.y].color==0) return true;
+                    if(color==0 && board[x][king.y].color==1) return true;
+                }
+                break; 
+            }
+        }
+    //king
+        //all possible places of opp king
+        p=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+
+        for(let i=0;i<p.length;i++){
+            let x=king.x+p[i][0],y=king.y+p[i][1];
+            if(x<0 || x>7 || y<0 || y>7) continue;
+            if(board[x][y].valid && board[x][y].type=='K'){
+                if(color==1 && board[x][y].color==0) return true;
+                if(color==0 && board[x][y].color==1) return true;
+            }
+        }
+
+    // doesnt open check.
+    return false;
+
+
+}
 export function validMove(from,to,piece,board){
 
-    if(piece.type=='P') return validPawnMove(from,to,piece,board);
-    if(piece.type=='N') return validKnightMove(from,to,piece,board);
-    if(piece.type=='R') return validRookMove(from,to,piece,board);
-    if(piece.type=='B') return validBishopMove(from,to,piece,board);
-    if(piece.type=='Q') return validQueenMove(from,to,piece,board);
-    if(piece.type=='K') return validKingMove(from,to,piece,board);
-    return false;
+    switch (piece.type) {
+        case 'P': {
+            let valid=validPawnMove(from, to, piece, board);
+            if(!valid) return false;
+            
+            // change the board
+            let oldFrom=board[from.x][from.y];
+            let oldTo=board[to.x][to.y];
+            changeBoard(from,to,new ChessPiece('invalid', 'invalid', -1, -1, null, false),oldFrom,board);
+            //check if keeping the move results in a open check.
+            let check=opensCheck(piece.color,board);
+            //changing the board back;
+            changeBoard(from,to,oldFrom,oldTo,board);
+
+            console.log(valid,check);
+            return !check;
+        }
+        case 'N': {
+            let valid=validKnightMove(from, to, piece, board);
+            if(!valid) return false;
+
+            // change the board
+            let oldFrom=board[from.x][from.y];
+            let oldTo=board[to.x][to.y];
+            changeBoard(from,to,new ChessPiece('invalid', 'invalid', -1, -1, null, false),oldFrom,board);
+            //check if keeping the move results in a open check.
+            let check=opensCheck(piece.color,board);
+            //changing the board back;
+            changeBoard(from,to,oldFrom,oldTo,board);
+
+            return !check;
+        }
+        case 'R': {
+            let valid=validRookMove(from, to, piece, board);
+            if(!valid) return false;
+
+            // change the board
+            let oldFrom=board[from.x][from.y];
+            let oldTo=board[to.x][to.y];
+            changeBoard(from,to,new ChessPiece('invalid', 'invalid', -1, -1, null, false),oldFrom,board);
+            //check if keeping the move results in a open check.
+            let check=opensCheck(piece.color,board);
+            //changing the board back;
+            changeBoard(from,to,oldFrom,oldTo,board);
+            
+            return !check;
+        }
+        case 'B': {
+            let valid=validBishopMove(from, to, piece, board);
+            if(!valid) return false;
+
+            // change the board
+            let oldFrom=board[from.x][from.y];
+            let oldTo=board[to.x][to.y];
+            changeBoard(from,to,new ChessPiece('invalid', 'invalid', -1, -1, null, false),oldFrom,board);
+            //check if keeping the move results in a open check.
+            let check=opensCheck(piece.color,board);
+            //changing the board back;
+            changeBoard(from,to,oldFrom,oldTo,board);
+            
+            return !check;
+        }
+        case 'Q': {
+            let valid=validQueenMove(from, to, piece, board);
+            if(!valid) return false;
+
+            // change the board
+            let oldFrom=board[from.x][from.y];
+            let oldTo=board[to.x][to.y];
+            changeBoard(from,to,new ChessPiece('invalid', 'invalid', -1, -1, null, false),oldFrom,board);
+            //check if keeping the move results in a open check.
+            let check=opensCheck(piece.color,board);
+            //changing the board back;
+            changeBoard(from,to,oldFrom,oldTo,board);
+            
+            return !check;
+        }
+        case 'K': {
+            let valid=validKingMove(from, to, piece, board);
+            if(!valid) return false;
+
+            // change the board
+            let oldFrom=board[from.x][from.y];
+            let oldTo=board[to.x][to.y];
+            changeBoard(from,to,new ChessPiece('invalid', 'invalid', -1, -1, null, false),oldFrom,board);
+            //check if keeping the move results in a open check.
+            let check=opensCheck(piece.color,board);
+            //changing the board back;
+            changeBoard(from,to,oldFrom,oldTo,board);
+            
+            return !check;
+        }
+        default: {
+          return false;
+        }
+    }
+      
 }
+function changeBoard(fromPos,toPos,fromVal,toVal,board){
+    board[fromPos.x][fromPos.y]=fromVal;
+    board[toPos.x][toPos.y]=toVal;
+}
+
