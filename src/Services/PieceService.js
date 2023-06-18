@@ -1,5 +1,5 @@
 import { ChessPiece } from "../Model/ChessPiece";
-function validPawnMove(from,to,piece,board){
+export function validPawnMove(from,to,piece,board){
     // checking how many rows and moved;
     let rowsMoved=Math.abs(from.x-to.x);
     let colsMoved=Math.abs(from.y-to.y);
@@ -33,7 +33,7 @@ function validPawnMove(from,to,piece,board){
     }
     return true;
 }
-function validKnightMove(from,to,piece,board){
+export function validKnightMove(from,to,piece,board){
     //all possible positions;
     let possible=[[2,-1],[2,1],[1,-2],[1,2],[-1,-2],[-1,2],[-2,1],[-2,-1]];
     for(let i=0;i<possible.length;i++){
@@ -49,7 +49,7 @@ function validKnightMove(from,to,piece,board){
     // either piece is same color or not possible move
     return false;
 }
-function validRookMove(from,to,piece,board){
+export function validRookMove(from,to,piece,board){
      //same row, horizontal
      if(from.x==to.x){
         // go right
@@ -90,7 +90,7 @@ function validRookMove(from,to,piece,board){
     }
     else return false;
 }
-function validBishopMove(from,to,piece,board){
+export function validBishopMove(from,to,piece,board){
     // checking if its in a diagonal 
     if(Math.abs(from.x-to.x)!=Math.abs(from.y-to.y)) return false;
     //going towards top
@@ -133,7 +133,7 @@ function validBishopMove(from,to,piece,board){
     }
     return false;
 }
-function validQueenMove(from,to,piece,board){
+export function validQueenMove(from,to,piece,board){
     return validRookMove(from,to,piece,board) || validBishopMove(from,to,piece,board);
 }
 function validKingMove(from,to,piece,board){
@@ -145,7 +145,7 @@ function validKingMove(from,to,piece,board){
     if(piece.color==board[to.x][to.y].color) return false;
     return true;
 }
-function opensCheck(color,board){
+export function opensCheck(color,board){
     // finding kings position.
     //color : 0- white , 1-black
     let king={};
@@ -156,7 +156,7 @@ function opensCheck(color,board){
             }
         }
     }
-    console.log(king);
+    // console.log(king);
     // check if other color pawn in attacking.
 
     if(color==0){
@@ -311,7 +311,7 @@ export function validMove(from,to,piece,board){
             //changing the board back;
             changeBoard(from,to,oldFrom,oldTo,board);
 
-            console.log(valid,check);
+            // console.log(valid,check);
             return !check;
         }
         case 'N': {
@@ -345,7 +345,9 @@ export function validMove(from,to,piece,board){
             return !check;
         }
         case 'B': {
+            // console.log(from,to,piece.type,piece.color)
             let valid=validBishopMove(from, to, piece, board);
+            // console.log(valid)
             if(!valid) return false;
 
             // change the board
@@ -395,8 +397,9 @@ export function validMove(from,to,piece,board){
     }
       
 }
-function changeBoard(fromPos,toPos,fromVal,toVal,board){
+export function changeBoard(fromPos,toPos,fromVal,toVal,board){
     board[fromPos.x][fromPos.y]=fromVal;
     board[toPos.x][toPos.y]=toVal;
 }
+
 
