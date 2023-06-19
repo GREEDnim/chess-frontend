@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
 import './Piece.css';
-
 const Piece = ({ src,coords,gameOver }) => {
 
   // console.log(coords);

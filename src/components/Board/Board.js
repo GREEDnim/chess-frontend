@@ -9,7 +9,15 @@ function Board({gameOver,setGameOver}){
     return(
         <div className='board-container'>
             {board.map((row,x)=>{
-                return row.map((ele,y)=><Tile x={x} y={y} board={board} setBoard={setBoard} gameOver={gameOver} setGameOver={setGameOver} />)
+                return row.map((ele,y)=>
+                <Tile 
+                x={x} 
+                y={y} 
+                board={board} 
+                setBoard={setBoard} 
+                gameOver={gameOver} 
+                setGameOver={setGameOver}
+                  />)
             })}
         </div>
     )
