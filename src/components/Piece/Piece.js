@@ -2,15 +2,15 @@ import { useState } from 'react';
 import React from 'react';
 import './Piece.css';
 
-const Piece = ({ piece }) => {
+const Piece = ({ src,coords,gameOver }) => {
 
+  // console.log(coords);
   const[isDragging,setDragging]=useState(false)
 
   function dragStart(e) {
-    console.log('dragStart',piece)
-    e.dataTransfer.setData('text/plain', JSON.stringify(piece));
+    // console.log(coords);
+    e.dataTransfer.setData('text/plain', JSON.stringify(coords));
     setDragging(true);
-  
   }
   
   function dragEnd(){
@@ -24,8 +24,7 @@ const Piece = ({ piece }) => {
   }
 
   return (
-
-    <img className='chess-piece' draggable={true} onDragStart={dragStart} onDragEnd={dragEnd} src={piece.src}  style={style} alt="" />
+    <img className='chess-piece' draggable={true&& !gameOver} onDragStart={dragStart} onDragEnd={dragEnd} src={src}  style={style} alt="" />
   );
 };
 
