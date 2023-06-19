@@ -1,7 +1,8 @@
 import './Tile.css';
 import Piece from '../Piece/Piece';
 import { validMove } from '../../Services/PieceService';
-function Tile({ x, y, piece, board, setBoard }) {
+import { checkMate } from '../../Services/CheckMate';
+function Tile({ x, y, piece, board, setBoard , setCheckMate}) {
   function dragOver(e) {
     e.preventDefault();
   }
@@ -9,11 +10,14 @@ function Tile({ x, y, piece, board, setBoard }) {
   function drop(e) {
     e.preventDefault();
     const pieceData = JSON.parse(e.dataTransfer.getData('text/plain'));
-    
+    console.log(pieceData)
     if(validMove({x:pieceData.x,y:pieceData.y},{x,y},pieceData,board)){
       addToBoard(pieceData);
+
+      // for every valid move made, check if the opp is checkmated.
+
+      if(checkMate(board, pieceData.color==0 ? 1 : 0 )) setCheckMate(true);
     }
-    else console.log("invalid move");
 
   }
 

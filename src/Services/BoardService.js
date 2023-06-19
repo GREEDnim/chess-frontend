@@ -56,7 +56,7 @@ export function createInitialBoard(board){
             board[whiteRow][s]=new ChessPiece('B',0,whiteRow,s,wBishop,true)
             board[whiteRow][e]=new ChessPiece('B',0,whiteRow,e,wBishop,true)
             board[blackRow][s]=new ChessPiece('B',1,blackRow,s,bBishop,true)
-            board[blackRow][e]=new ChessPiece('B',1,blackRow,s,bBishop,true)        
+            board[blackRow][e]=new ChessPiece('B',1,blackRow,e,bBishop,true)        
         }
         if(s===3){
             board[whiteRow][s]=new ChessPiece('Q',0,whiteRow,s,wQueen,true)

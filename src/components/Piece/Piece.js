@@ -7,6 +7,7 @@ const Piece = ({ piece }) => {
   const[isDragging,setDragging]=useState(false)
 
   function dragStart(e) {
+    console.log('dragStart',piece)
     e.dataTransfer.setData('text/plain', JSON.stringify(piece));
     setDragging(true);
   
