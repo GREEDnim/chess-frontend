@@ -7,7 +7,7 @@ import { checkMate } from '../../Services/Board/CheckMate';
 import { ChessPiece } from '../../Model/ChessPiece';
 import { Game } from '../../Services/Board/Game';
 import io from 'socket.io-client';
-const socket =io.connect('http://localhost:3001');
+const socket =io.connect('https://chess-backend-znna.onrender.com');
 
 function Board({gameOver,setGameOver}){
 
