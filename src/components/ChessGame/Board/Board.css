@@ -3,4 +3,5 @@
     width:var(--board-size);
     height:var(--board-size);
     grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8,1fr);
 }

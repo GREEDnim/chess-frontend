@@ -1,16 +1,12 @@
 import './Tile.css';
-import Piece from '../Piece/Piece';
+import Piece from './Piece/Piece'
 
 
-import io from 'socket.io-client';
-const socket =io.connect('https://chess-backend-znna.onrender.com');
-
-
-function sendMoveToOpponent(from,to){
-socket.emit("send-piece",{from,to})
+function sendMoveToOpponent(from,to,socket,roomId){
+socket.emit("send-piece",{from,to},roomId);
 }
 
-function Tile({ x, y,piece, validateAndAddToBoard, gameOver}) {
+function Tile({ x, y,piece, validateAndAddToBoard, gameOver, socket,color, roomId }) {
   
   function dragOver(e) {
     e.preventDefault();
@@ -22,16 +18,17 @@ function Tile({ x, y,piece, validateAndAddToBoard, gameOver}) {
     const to={x,y}
     let valid=validateAndAddToBoard(from,to,true);
     //im only sending the from and to ;
-    if(valid) sendMoveToOpponent(from,to);
+    if(valid) sendMoveToOpponent(from,to,socket,roomId);
   }
   const className = `tile ${ (x+y)%2 === 0 ? 'white' : 'black'}`;
+  console.log(x,y);
   return (
     <div className={className} data-x={x} data-y={y} key={`${x}-${y}`} onDragOver={dragOver} onDrop={drop}>
       {piece.valid && 
       <Piece 
       src={piece.src} 
       coords={{x,y}} 
-      gameOver={gameOver}  />}
+      gameOver={gameOver}   />}
     </div>
   )
 }
