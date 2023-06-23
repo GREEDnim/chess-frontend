@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import './Piece.css';
+import { Game } from '../../../../../Services/Board/Game';
 const Piece = ({ src,coords,gameOver,pieceColor,playerColor }) => {
 
   // console.log(coords);
@@ -23,7 +24,7 @@ const Piece = ({ src,coords,gameOver,pieceColor,playerColor }) => {
   }
 
   return (
-    <img className='chess-piece' draggable={ pieceColor==playerColor && !gameOver } onDragStart={dragStart} onDragEnd={dragEnd} src={src}  style={style} alt="" />
+    <img className='chess-piece' draggable={ pieceColor==playerColor && !gameOver && Game.getTurn()==pieceColor  } onDragStart={dragStart} onDragEnd={dragEnd} src={src}  style={style} alt="" />
   );
 };
 

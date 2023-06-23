@@ -21,7 +21,7 @@ function Tile({ x, y,piece, validateAndAddToBoard, gameOver, socket, color, room
     if(valid) sendMoveToOpponent(from,to,socket,roomId);
   }
   const className = `tile ${ (x+y)%2 === 0 ? 'white' : 'black'}`;
-  console.log(x,y);
+
   return (
     <div className={className} data-x={x} data-y={y} key={`${x}-${y}`} onDragOver={dragOver} onDrop={drop}>
       {piece.valid && 

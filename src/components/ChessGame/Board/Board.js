@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
-import { getBoard,createInitialBoard } from '../../../Services/Board/BoardService'
 import './Board.css';
+import wQueen from '../../../assets/wQueen.svg';
+import bQueen from '../../../assets/bQueen.svg';
 import Tile from './Tile/Tile';
 import { validMove } from '../../../Services/Pieces/PieceService';
 import { checkMate } from '../../../Services/Board/CheckMate';
@@ -8,9 +9,9 @@ import { ChessPiece } from '../../../Model/ChessPiece';
 import { Game } from '../../../Services/Board/Game';
 
 
-function Board({gameOver,setGameOver,socket,color,roomId}){
+function Board({gameOver,setGameOver,socket,color,roomId,board,setBoard}){
 
-    const[board,setBoard]=useState(createInitialBoard(getBoard()));
+
     useEffect(()=>{
         socket.on('receive-piece',(data)=>{
             validateAndAddToBoard(data.from,data.to);
@@ -34,7 +35,14 @@ function Board({gameOver,setGameOver,socket,color,roomId}){
       }
 
       function addToBoard(from,to){
-        board[to.x][to.y]=board[from.x][from.y];
+        if(to.x==0 || to.x==7) {
+          let piece=new ChessPiece('Q',board[from.x][from.y].color,null,true);
+          if(to.x==0) piece.src=wQueen;
+          else piece.src=bQueen;
+          board[to.x][to.y]=piece;
+          console.log("promotion",board[to.x][to.y]);
+        }
+        else board[to.x][to.y]=board[from.x][from.y];
         board[from.x][from.y] = new ChessPiece('I',-1,null,false);
         setBoard([...board]);
       }
@@ -48,7 +56,7 @@ function Board({gameOver,setGameOver,socket,color,roomId}){
                 }
               }
             }
-            else {
+            else if(color==1){
               for(let x=7;x>=0;x--){
                 for(let y=0;y<=7;y++){
                   tiles.push( <Tile  x={x}  y={y}  piece={board[x][y]} gameOver={gameOver}  validateAndAddToBoard={validateAndAddToBoard} socket={socket} color={color} roomId={roomId} />)
