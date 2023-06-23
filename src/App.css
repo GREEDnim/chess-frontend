@@ -2,20 +2,6 @@
     padding:0;
     margin:0;
 }
-:root {
-    --board-size: 600px;
-  }
-.container{
 
-    height: 100vh;
-    width:100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-}
-.mobile{
-    text-align: center;
-    padding:50px;
-}
+
 
