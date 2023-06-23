@@ -20,7 +20,7 @@ function App(){
         roomId={roomId}
         setRoomId={setRoomId} />
          } />
-        <Route path="/game" element={
+        <Route path="/game" element={ 
         <ChessGame 
         socket={socket}
         color={color}
