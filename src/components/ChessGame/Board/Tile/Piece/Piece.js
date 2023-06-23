@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import './Piece.css';
-const Piece = ({ src,coords,gameOver }) => {
+const Piece = ({ src,coords,gameOver,pieceColor,playerColor }) => {
 
   // console.log(coords);
   const[isDragging,setDragging]=useState(false)
@@ -23,7 +23,7 @@ const Piece = ({ src,coords,gameOver }) => {
   }
 
   return (
-    <img className='chess-piece' draggable={true&& !gameOver} onDragStart={dragStart} onDragEnd={dragEnd} src={src}  style={style} alt="" />
+    <img className='chess-piece' draggable={ pieceColor==playerColor && !gameOver } onDragStart={dragStart} onDragEnd={dragEnd} src={src}  style={style} alt="" />
   );
 };
 

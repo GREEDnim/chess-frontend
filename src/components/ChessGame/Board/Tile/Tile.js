@@ -6,7 +6,7 @@ function sendMoveToOpponent(from,to,socket,roomId){
 socket.emit("send-piece",{from,to},roomId);
 }
 
-function Tile({ x, y,piece, validateAndAddToBoard, gameOver, socket,color, roomId }) {
+function Tile({ x, y,piece, validateAndAddToBoard, gameOver, socket, color, roomId }) {
   
   function dragOver(e) {
     e.preventDefault();
@@ -26,6 +26,8 @@ function Tile({ x, y,piece, validateAndAddToBoard, gameOver, socket,color, roomI
     <div className={className} data-x={x} data-y={y} key={`${x}-${y}`} onDragOver={dragOver} onDrop={drop}>
       {piece.valid && 
       <Piece 
+      pieceColor={piece.color}
+      playerColor={color}
       src={piece.src} 
       coords={{x,y}} 
       gameOver={gameOver}   />}
