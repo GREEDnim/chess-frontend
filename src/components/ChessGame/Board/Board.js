@@ -35,7 +35,7 @@ function Board({gameOver,setGameOver,socket,color,roomId,board,setBoard}){
       }
 
       function addToBoard(from,to){
-        if(to.x==0 || to.x==7) {
+        if(board[from.x][from.y].type=='P' && (to.x==0 || to.x==7)) {
           let piece=new ChessPiece('Q',board[from.x][from.y].color,null,true);
           if(to.x==0) piece.src=wQueen;
           else piece.src=bQueen;
